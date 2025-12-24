@@ -68,6 +68,7 @@
     .hero h1 { font-size: 3rem; animation: fadeUp 1s ease; }
     .hero span { color: var(--primary); }
     .hero p { margin: 20px 0; color: var(--gray); animation: fadeUp 1.2s ease; }
+    
 
     .btn {
       display: inline-block;
@@ -208,21 +209,69 @@
     @media(max-width: 768px) {
       .hero { grid-template-columns: 1fr; text-align: center; }
     }
+ /* Hamburger button hidden on desktop */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--dark);
+}
+
+/* Mobile styles */
+@media(max-width: 768px) {
+  nav {
+    flex-wrap: wrap;
+    position: relative;
+  }
+
+  .nav-links {
+    display: none; /* hide links by default */
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+    background: white;
+    padding: 10px 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+
+  .nav-links a {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+  }
+
+  .nav-links.active {
+    display: flex; /* show links when active */
+  }
+}
+
+
   </style>
 </head>
 <body>
 
 <header>
   <div class="container">
-    <nav>
-      <h3>Tehetna</h3>
-      <div>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
+  <nav>
+  <h3>Tehetna</h3>
+  <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
   </div>
 </header>
 
@@ -348,6 +397,10 @@ willing to learn from mistakes and new things.
   </div>
 </div>
 <script>
+    function toggleMenu() {
+  const links = document.querySelector('.nav-links');
+  links.classList.toggle('active');
+}
 const cards = document.querySelectorAll('.card');
 const observer = new IntersectionObserver(entries => {
 entries.forEach(entry => {
@@ -355,8 +408,9 @@ if(entry.isIntersecting) entry.target.classList.add('show');
 });
 }, { threshold: 0.2 });
 cards.forEach(card => observer.observe(card));
+
+
 </script>
 
 </body>
 </html>
-
